@@ -228,6 +228,10 @@ func newLocationCache() *locationCache {
 // Returns the cached timezone for the specified offset, creating and caching
 // it if necessary.
 func (c *locationCache) getLocation(offset int) *time.Location {
+	if offset == 0 {
+		return time.UTC
+	}
+
 	c.lock.Lock()
 	defer c.lock.Unlock()
 
